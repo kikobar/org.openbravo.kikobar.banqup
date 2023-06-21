@@ -1,4 +1,7 @@
+# Sensitive files
 config.py
+*.JSON
+*.json
 
 # ---> Python
 # Byte-compiled / optimized / DLL files
