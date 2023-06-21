@@ -29,10 +29,10 @@ payload = json.dumps({
     "sales_invoice_number": invoice['response']['data'][0]['documentNo'],
     "sales_invoice_date": invoice['response']['data'][0]['invoiceDate']+"T00:00:00Z",
     "sales_invoice_due_date": "2023-06-17T00:00:00Z", #needs to be replaced by invoiceDate+"daysTillDue"
-    "platform_id": 15,
+    "platform_id": banqup_platform_id,
     "debtor_id": 136328, #needs to be fetch from database using the "client_debtor_number"
     "currency_code": invoice['response']['data'][0]['currency$_identifier'],
-    "client_id": 73223,
+    "client_id": banqup_client_id,
     "delivery_channel": "openpeppol",
     "invoice_lines": [
         {
