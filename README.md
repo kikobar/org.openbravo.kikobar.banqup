@@ -9,6 +9,7 @@ to the Banqup API of Unifiedpost.
 * Credentials for accessing the Banqup API by Unifiedpost
 
 **How to run this application**
+
 `python3 extract-invoice.py <documentNo>`
 
 Where `<documentNo>` is the human readable invoice number in Openbravo.
