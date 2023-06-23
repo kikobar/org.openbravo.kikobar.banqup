@@ -38,7 +38,7 @@ def extract_invoice(document):
 			first_line = False
 			lines_output = lines_output + '{"service_name": "'+linetemp['product']+'","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+'8'+'}'
 	lines_output = lines_output+']'
-	print(lines_output)
+	#print(lines_output)
 
 	payload = json.dumps({
 	    "sales_invoice_number": invoice['response']['data'][0]['documentNo'],
@@ -49,15 +49,7 @@ def extract_invoice(document):
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
 	    "client_id": banqup_client_id,
 	    "delivery_channel": "openpeppol",
-	    "invoice_lines": [
-		{
-		    "service_name": "161218",
-		    "service_description": "Cavendish Banana 18.8Kg BOX",
-		    "service_quantity": 10,
-		    "service_price": 1.75,
-		    "service_vat": 8
-		}
-	    ]
+	    "invoice_lines": json.loads(lines_output)
 	})
 	print(payload)
 
