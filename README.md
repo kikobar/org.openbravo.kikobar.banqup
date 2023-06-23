@@ -12,6 +12,6 @@ to the Banqup API of Unifiedpost.
 
 * Copy the file `config-sample.py` to `config.py`
 * Edit `config.py` with your credentials for Openbravo and Banqup
-* Run `python3 extract-invoice.py <documentNo>`
+* Run `python3 extract_invoice.py <documentNo>`
 
 Where `<documentNo>` is the human readable invoice number in Openbravo.
