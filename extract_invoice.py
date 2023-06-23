@@ -14,16 +14,31 @@ def extract_invoice(document):
 
 	response = requests.request("GET", url, headers=headers, data=payload) #extracts invoice header
 
-	print(response.text)
+	#print(response.text)
 	invoice = json.loads(response.text)
 	#print (invoice['response']['data'][0]['client'])
 
 	url = ob_api_url+"InvoiceLine?_where=invoice='"+invoice['response']['data'][0]['id']+"'&_noActiveFilter=false"
 
 	response = requests.request("GET", url, headers=headers, data=payload) #extracts invoice lines
-	print(response.text)
-
-
+	#print(response.text)
+	lines = json.loads(response.text)['response']['data']
+	lines_json = json.dumps(lines)
+	#print(lines_json)
+	lines = json.loads(lines_json)
+	lines_output = '['
+	first_line = True
+	for key in lines:
+		#print (key)
+		linetemp_json = json.dumps(key)
+		linetemp = json.loads(linetemp_json)
+		if linetemp['product'] != None:
+			if not first_line:
+				lines_output = lines_output+','
+			first_line = False
+			lines_output = lines_output + '{"service_name": "'+linetemp['product']+'","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+'8'+'}'
+	lines_output = lines_output+']'
+	print(lines_output)
 
 	payload = json.dumps({
 	    "sales_invoice_number": invoice['response']['data'][0]['documentNo'],
