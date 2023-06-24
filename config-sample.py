@@ -1,3 +1,5 @@
+CACHE = {}
+
 # Openbravo API parameters
 
 ob_api_url = "http://[your-openbravo-domain]/openbravo/org.openbravo.service.json.jsonrest/"
