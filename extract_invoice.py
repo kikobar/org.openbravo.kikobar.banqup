@@ -20,9 +20,9 @@ def extract_invoice(document):
 
 	response = requests.request("GET", url, headers=headers, data=payload) #extracts invoice header
 
-	print(response.text)
+	#print(response.text)
 	invoice = json.loads(response.text)
-	print (invoice['response']['data'][0]['businessPartner'])
+	#print (invoice['response']['data'][0]['businessPartner'])
 	lastCalculatedOnDate = invoice['response']['data'][0]['lastCalculatedOnDate']
 	daysTillDue = invoice['response']['data'][0]['daysTillDue']
 	dueDate = date(int(lastCalculatedOnDate[0:4]), int(lastCalculatedOnDate[5:7]), int(lastCalculatedOnDate[8:10])) + timedelta(days=daysTillDue)
@@ -30,20 +30,12 @@ def extract_invoice(document):
 	api = OpenbravoToBanqupAPI(bq_client_id,bq_client_secret)
 	authUrl = api.authHandler.getAuthURL(bq_redirect_uri)
 	webbrowser.open(authUrl)
-	response = input('paste response: ')
+	response = input('Paste response: ')
 	token = api.authHandler.retrieveToken(response, redirectUri=bq_redirect_uri)
-	print(token)
+	#print(token)
 	businessPartner=invoice['response']['data'][0]['businessPartner']
 	debtor_list = api.get('debtors?client_id='+banqup_client_id+'&client_debtor_number='+businessPartner,None,None)
-
-	print(debtor_list)
-	print(debtor_list[0])
-	print(debtor_list[1])
-	print(debtor_list[2])
-	print(debtor_list[2]['results'])
-	print(debtor_list[2]['results'][0])
-	print(debtor_list[2]['results'][0]['id'])
-	print(debtor_list[2]['results'][0]['preferred_channel'])
+	#print(debtor_list)
 
 	debtor_id = debtor_list[2]['results'][0]['id']
 	preferred_channel = debtor_list[2]['results'][0]['preferred_channel']
@@ -66,7 +58,7 @@ def extract_invoice(document):
 			if not first_line:
 				lines_output = lines_output+','
 			first_line = False
-			lines_output = lines_output + '{"service_name": "'+linetemp['product']+'","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+'8'+'}'
+			lines_output = lines_output + '{"service_name": "","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+'8'+'}'
 	lines_output = lines_output+']'
 	#print(lines_output)
 
@@ -81,7 +73,7 @@ def extract_invoice(document):
 	    "delivery_channel": preferred_channel,
 	    "invoice_lines": json.loads(lines_output)
 	})
-	print(payload)
+	#print(payload)
 
 	new_invoice = api.post('sales-invoices',json.loads(payload),None,None)
 	print(new_invoice)
