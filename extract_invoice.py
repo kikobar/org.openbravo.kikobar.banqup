@@ -36,6 +36,12 @@ def extract_invoice(document):
 	businessPartner=invoice['response']['data'][0]['businessPartner']
 	debtor_list = api.get('debtors?client_id='+banqup_client_id+'&client_debtor_number='+businessPartner,None,None)
 	#print(debtor_list)
+	if not debtor_list[2]['results']:
+		print('***********************')
+		print('The business partner '+businessPartner+' is not registered in the Banqup portal for the customer '+invoice['response']['data'][0]['businessPartner$_identifier'])
+		print('Please complete the registration in Banqup and try again.')
+		print('***********************')
+		return
 
 	debtor_id = debtor_list[2]['results'][0]['id']
 	preferred_channel = debtor_list[2]['results'][0]['preferred_channel']
