@@ -16,9 +16,10 @@ class AuthHandler:
 		self.state = None
 		self.token = None
 
-	def getAuthURL(self, redirectUrl):
-		self.redirectUrl = redirectUrl
+	def getAuthURL(self, redirectUri):
+		self.redirectUri = redirectUri
 		oauth = OAuth2Session(self.clientId, redirect_uri=self.redirectUri, scope='openid')
+		authorizationUrl, self.state = oauth.authorization_url(self.authUrl)
 		return authorizationUrl
 
 	def retrieveToken(self, response, state=None, redirectUri=None):
