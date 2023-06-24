@@ -7,7 +7,7 @@ to the Banqup API of Unifiedpost.
 * Python installed on the machine running this application
 * Credentials for accessing an Openbravo 3+ instance running with the REST API enabled
 * Credentials for accessing the Banqup API by Unifiedpost
-* Add the businessPartner id to the customer code or client_debtor_number at the Banqup portal
+* Add the businessPartner id to the 'Customer code' of the customer on the 'Customers & Suppliers' section of the Banqup portal - This is critical, this programs requires this field to extract some parameters that only exist in the Banqup platform
 
 **How to run this application**
 
