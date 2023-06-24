@@ -74,10 +74,14 @@ def extract_invoice(document):
 	    "debtor_id": debtor_id,
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
 	    "client_id": banqup_client_id,
-	    "delivery_channel": "openpeppol",
+	    "delivery_channel": preferred_channel,
 	    "invoice_lines": json.loads(lines_output)
 	})
 	print(payload)
+
+	new_invoice = api.post('sales-invoices',json.loads(payload),None,None)
+	print(new_invoice)
+
 
 if __name__ == '__main__':
 	extract_invoice(str(sys.argv[1]))
