@@ -7,6 +7,7 @@ from config import *
 from cachehandler import CacheHandler
 from authhandler import AuthHandler
 from api import OpenbravoToBanqupAPI
+from datetime import timedelta, date
 
 def extract_invoice(document):
 	
@@ -22,6 +23,9 @@ def extract_invoice(document):
 	print(response.text)
 	invoice = json.loads(response.text)
 	print (invoice['response']['data'][0]['businessPartner'])
+	lastCalculatedOnDate = invoice['response']['data'][0]['lastCalculatedOnDate']
+	daysTillDue = invoice['response']['data'][0]['daysTillDue']
+	dueDate = date(int(lastCalculatedOnDate[0:4]), int(lastCalculatedOnDate[5:7]), int(lastCalculatedOnDate[8:10])) + timedelta(days=daysTillDue)
 
 	api = OpenbravoToBanqupAPI(bq_client_id,bq_client_secret)
 	authUrl = api.authHandler.getAuthURL(bq_redirect_uri)
@@ -69,7 +73,7 @@ def extract_invoice(document):
 	payload = json.dumps({
 	    "sales_invoice_number": invoice['response']['data'][0]['documentNo'],
 	    "sales_invoice_date": invoice['response']['data'][0]['invoiceDate']+"T00:00:00Z",
-	    "sales_invoice_due_date": "2023-06-17T00:00:00Z", #needs to be replaced by invoiceDate+"daysTillDue"
+	    "sales_invoice_due_date": str(dueDate)+"T00:00:00Z",
 	    "platform_id": banqup_platform_id,
 	    "debtor_id": debtor_id,
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
