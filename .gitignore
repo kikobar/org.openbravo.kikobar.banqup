@@ -2,6 +2,7 @@
 config.py
 *.JSON
 *.json
+cache/*.txt
 
 # ---> Python
 # Byte-compiled / optimized / DLL files

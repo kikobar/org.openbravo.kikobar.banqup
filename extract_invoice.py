@@ -14,9 +14,9 @@ def extract_invoice(document):
 
 	response = requests.request("GET", url, headers=headers, data=payload) #extracts invoice header
 
-	#print(response.text)
+	print(response.text)
 	invoice = json.loads(response.text)
-	#print (invoice['response']['data'][0]['client'])
+	print (invoice['response']['data'][0]['businessPartner'])
 
 	url = ob_api_url+"InvoiceLine?_where=invoice='"+invoice['response']['data'][0]['id']+"'&_noActiveFilter=false"
 
