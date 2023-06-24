@@ -1,7 +1,12 @@
 import requests
+from requests_oauthlib import OAuth2Session
 import json
 import sys
+import webbrowser
 from config import *
+from cachehandler import CacheHandler
+from authhandler import AuthHandler
+from api import OpenbravoToBanqupAPI
 
 def extract_invoice(document):
 	
@@ -17,6 +22,27 @@ def extract_invoice(document):
 	print(response.text)
 	invoice = json.loads(response.text)
 	print (invoice['response']['data'][0]['businessPartner'])
+
+	api = OpenbravoToBanqupAPI(bq_client_id,bq_client_secret)
+	authUrl = api.authHandler.getAuthURL(bq_redirect_uri)
+	webbrowser.open(authUrl)
+	response = input('paste response: ')
+	token = api.authHandler.retrieveToken(response, redirectUri=bq_redirect_uri)
+	print(token)
+	businessPartner=invoice['response']['data'][0]['businessPartner']
+	debtor_list = api.get('debtors?client_id='+banqup_client_id+'&client_debtor_number='+businessPartner,None,None)
+
+	print(debtor_list)
+	print(debtor_list[0])
+	print(debtor_list[1])
+	print(debtor_list[2])
+	print(debtor_list[2]['results'])
+	print(debtor_list[2]['results'][0])
+	print(debtor_list[2]['results'][0]['id'])
+	print(debtor_list[2]['results'][0]['preferred_channel'])
+
+	debtor_id = debtor_list[2]['results'][0]['id']
+	preferred_channel = debtor_list[2]['results'][0]['preferred_channel']
 
 	url = ob_api_url+"InvoiceLine?_where=invoice='"+invoice['response']['data'][0]['id']+"'&_noActiveFilter=false"
 
@@ -45,7 +71,7 @@ def extract_invoice(document):
 	    "sales_invoice_date": invoice['response']['data'][0]['invoiceDate']+"T00:00:00Z",
 	    "sales_invoice_due_date": "2023-06-17T00:00:00Z", #needs to be replaced by invoiceDate+"daysTillDue"
 	    "platform_id": banqup_platform_id,
-	    "debtor_id": 136328, #needs to be fetch from database using the "client_debtor_number"
+	    "debtor_id": debtor_id,
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
 	    "client_id": banqup_client_id,
 	    "delivery_channel": "openpeppol",
