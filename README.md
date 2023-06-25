@@ -1,6 +1,6 @@
 **Objective**
 
-This project attempt to extract data from Openbravo to generate a JSON to submit
+This project attempts to extract data from Openbravo to generate a JSON to submit
 to the Banqup API of Unifiedpost.
 
 **Requirements**

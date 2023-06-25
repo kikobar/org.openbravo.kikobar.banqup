@@ -77,7 +77,12 @@ def extract_invoice(document):
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
 	    "client_id": banqup_client_id,
 	    "delivery_channel": preferred_channel,
-	    "invoice_lines": json.loads(lines_output)
+	    "invoice_lines": json.loads(lines_output),
+	    "po_number": "NA",
+	    "buyer_reference": "NA",
+	    "customer_reference": "NA",
+	    "supplier_reference": "NA",
+	    "contract_number": "NA"
 	})
 	#print(payload)
 
