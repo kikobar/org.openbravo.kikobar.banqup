@@ -9,6 +9,7 @@ userpass_b64 = "cm9ib3RhcGk6S2kxMzAxa28j"
 # Banqup API parameters
 banqup_client_id = "73223"
 banqup_platform_id = 15
+gst_rate = "8"
 bq_client_id = "your-client-id-here"
 bq_client_secret = "your-secret-here"
 bq_base_url = "https://v4-api.platform.eu.banqup.com/v4"

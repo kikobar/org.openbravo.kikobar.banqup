@@ -64,7 +64,7 @@ def extract_invoice(document):
 			if not first_line:
 				lines_output = lines_output+','
 			first_line = False
-			lines_output = lines_output + '{"service_name": "","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+'8'+'}'
+			lines_output = lines_output + '{"service_name": "","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+gst_rate+'}'
 	lines_output = lines_output+']'
 	#print(lines_output)
 
