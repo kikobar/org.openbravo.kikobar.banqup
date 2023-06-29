@@ -1,6 +1,6 @@
 **Objective**
 
-This project attempts to extract data from Openbravo to generate a JSON to submit
+This Python script extracts data from Openbravo to generate a JSON invoice to submit
 to the Banqup API of Unifiedpost.
 
 **Requirements**
@@ -23,3 +23,7 @@ to the Banqup API of Unifiedpost.
   * Post the invoice to the Banqup API for the creation of the corresponding invoice in Banqup.
   * Display the response from the Banqup API, confirming the success or failure of the request.
   * If the requests is successful, a new invoice will be created with status 'Draft' in the Banqup portal, so that it could be further processed on that system.
+
+**Credits**
+
+* This script is heavily inspired by python-billtobox-api by alexander-schillemans available at: https://github.com/alexander-schillemans/python-billtobox-api
