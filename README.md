@@ -19,7 +19,7 @@ to the Banqup API of Unifiedpost.
   * Fetch the invoice `<documentNo>` from Openbravo.
   * Authenticate with Banqup using OAuth2, for which it will launch a webbrowser to complete the authentication. The browser will receive the response from the Banqup server including the authentication token. The user will need to 'Copy' and 'Paste' this response at the corresponding prompt in the terminal.
   * Fetch the corresponding `businessPartner` from Banqup to verify its existence and correct setup.
-  * Build a json in compatible format with the Banqup API.
+  * Build a json in compatible format with the Banqup API fir the invoice.
   * Post the invoice to the Banqup API for the creation of the corresponding invoice in Banqup.
   * Display the response from the Banqup API, confirming the success or failure of the request.
-  * The new invoice will be created as a 'Draft' in the Banqup portal, so that it could be further processed.
+  * If the requests is successful, a new invoice will be created with status 'Draft' in the Banqup portal, so that it could be further processed.
