@@ -6,6 +6,7 @@ to the Banqup API of Unifiedpost.
 **Requirements**
 * Python installed on the machine running this application
 * Credentials for accessing an Openbravo 3+ instance running with the REST API enabled
+* The role in Openbravo used for the extraction/integration must have read access to 'Sales Invoices' and 'Product' via web services. 
 * Credentials for accessing the Banqup API by Unifiedpost
 * Add the businessPartner id to the 'Customer code' of the customer on the 'Customers & Suppliers' section of the Banqup portal - This is critical, this programs requires this field to extract some parameters that only exist in the Banqup platform
 
