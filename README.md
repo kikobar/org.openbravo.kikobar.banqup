@@ -22,4 +22,4 @@ to the Banqup API of Unifiedpost.
   * Build a json in compatible format with the Banqup API fir the invoice.
   * Post the invoice to the Banqup API for the creation of the corresponding invoice in Banqup.
   * Display the response from the Banqup API, confirming the success or failure of the request.
-  * If the requests is successful, a new invoice will be created with status 'Draft' in the Banqup portal, so that it could be further processed.
+  * If the requests is successful, a new invoice will be created with status 'Draft' in the Banqup portal, so that it could be further processed on that system.
