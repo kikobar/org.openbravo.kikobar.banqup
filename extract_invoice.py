@@ -46,7 +46,7 @@ def extract_invoice(document):
 	debtor_id = debtor_list[2]['results'][0]['id']
 	preferred_channel = debtor_list[2]['results'][0]['preferred_channel']
 
-	url = ob_api_url+"InvoiceLine?_where=invoice='"+invoice['response']['data'][0]['id']+"'&_noActiveFilter=false"
+	url = ob_api_url+"InvoiceLine?_where=invoice='"+invoice['response']['data'][0]['id']+"'&_noActiveFilter=false&_sortBy=lineNo"
 
 	response = requests.request("GET", url, headers=headers, data=payload) #extracts invoice lines
 	#print(response.text)
