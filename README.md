@@ -4,6 +4,7 @@ This Python script extracts data from Openbravo to generate a JSON invoice to su
 to the Banqup API of Unifiedpost.
 
 **Requirements**
+
 * Python installed on the machine running this application.
 * Credentials for accessing an Openbravo 3+ instance running with the REST API enabled.
 * The role in Openbravo used for the extraction/integration must have read access to 'Sales Invoices' and 'Product' via web services. 
@@ -29,6 +30,12 @@ to the Banqup API of Unifiedpost.
     * Fetch the invoice in Banqup to verify its existence in the portal and retrieve its id in Banqup.
     * Post a request to the Banqup API to confirm the invoice and send it to the customer.
     * Display the response from the Banqup API, confirming the success or failure of the request.
+* Run `python3 paid_invoice.py <documentNo>`, where `<documentNo>` is the human readable invoice number in Openbravo, to confirm an invoice in Banqup portal and send it to the customer via the API.
+  - The application will do the following:
+    - Authenticate with Banqup using OAuth2, for which it will launch a webbrowser to complete the authentication. The browser will receive the response from the Banqup server including the authentication token. The user will need to 'Copy' and 'Paste' this response at the corresponding prompt in the terminal.
+    - Fetch the invoice in Banqup to verify its existence in the portal and retrieve its id in Banqup.
+    - Post a request to the Banqup API to mark the invoice as 'Paid'.
+    - Display the response from the Banqup API, confirming the success or failure of the request.
 
 **Credits**
 
