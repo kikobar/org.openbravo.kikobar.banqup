@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ======================================================================
 
-Some portions of Software are redistributed under another licenses:
+Some portions of the Software are redistributed under another licenses:
 
 ======================================================================
 
