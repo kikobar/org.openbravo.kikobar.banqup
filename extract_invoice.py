@@ -67,7 +67,10 @@ def extract_invoice(document):
 			url = ob_api_url+"Product?_where=id='"+linetemp['product']+"'&_noActiveFilter=false"
 			response = requests.request("GET", url, headers=headers, data=payload) #extracts product from master
 			product = json.loads(response.text)['response']['data'][0]['searchKey']
-			lines_output = lines_output + '{"service_name": "'+product+'","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+gst_rate+'}'
+			if product != comment_product:
+				lines_output = lines_output + '{"service_name": "'+product+'","service_description": "'+linetemp['product$_identifier']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+gst_rate+'}'
+			else:
+				lines_output = lines_output + '{"service_name": "'+product+'","service_description": "'+linetemp['description']+'","service_quantity": '+str(linetemp['invoicedQuantity'])+',"service_price": '+str(linetemp['unitPrice'])+',"service_vat": '+gst_rate+'}'
 	lines_output = lines_output+']'
 	#print(lines_output)
 
@@ -80,7 +83,7 @@ def extract_invoice(document):
 	    "currency_code": invoice['response']['data'][0]['currency$_identifier'],
 	    "client_id": banqup_client_id,
 	    "delivery_channel": preferred_channel,
-	    "invoice_lines": json.loads(lines_output),
+	    "invoice_lines": json.loads(lines_output, strict=False),
 	    "po_number": "NA",
 	    "buyer_reference": "NA",
 	    "customer_reference": "NA",

@@ -12,6 +12,8 @@ userpass_b64 = base64.b64encode((ob_user+':'+ob_pass).encode('ascii')).decode('a
 # 2) you may enter the user:password base64 encoded
 #userpass_b64 = "your-ob-user:your-ob-password-base64-encoded"
 
+# You may use this one product as a 'comment' in order to print the invoice line description instead of the product description
+comment_product = 'Comment/Note'
 
 # Banqup API parameters
 banqup_client_id = "73223"
