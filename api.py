@@ -61,13 +61,16 @@ class OpenbravoToBanqupAPI:
 		self.authHandler.checkHeaderTokens()
 		response = self.doRequest(method, url, data, headers, files)
 
-		if 'json' in response.headers['Content-Type']:
-			respContent = response.json()
-		elif 'pdf' in response.headers['Content-Type']:
-			respContent = response.content
-        
+		if response.status_code != 204:
+			if 'json' in response.headers['Content-Type']:
+				respContent = response.json()
+			elif 'pdf' in response.headers['Content-Type']:
+				respContent = response.content
+		else:
+			respContent = ''
+
 		return response.status_code, response.headers, respContent
-    
+
 	def get(self, url, data=None, headers=None):
 		status, headers, response = self.request('GET', url, data, headers)
 		return status, headers, response
