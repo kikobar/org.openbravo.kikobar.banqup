@@ -36,6 +36,12 @@ to the Banqup API of Unifiedpost.
     - Fetch the invoice in Banqup to verify its existence in the portal and retrieve its id in Banqup.
     - Post a request to the Banqup API to mark the invoice as 'Paid'.
     - Display the response from the Banqup API, confirming the success or failure of the request.
+* Run `python3 delete_invoice.py <documentNo>`, where `<documentNo>` is the human readable invoice number in Openbravo, to delete an invoice in Banqup portal via the API.
+  - The application will do the following:
+    - Authenticate with Banqup using OAuth2, for which it will launch a webbrowser to complete the authentication. The browser will receive the response from the Banqup server including the authentication token. The user will need to 'Copy' and 'Paste' this response at the corresponding prompt in the terminal.
+    - Fetch the invoice in Banqup to verify its existence in the portal and retrieve its id in Banqup.
+    - Post a request to the Banqup API to delete the invoice.
+    - Display the response from the Banqup API, confirming the success or failure of the request.
 
 **Credits**
 
