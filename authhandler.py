@@ -44,7 +44,7 @@ class AuthHandler:
 			redirectUri = self.redirectUri
 		if not state:
 			if not self.state: print('state is not found. init the auth flow first or give the state as a parameter.')
-		state = self.state
+			state = self.state
 		oauth = OAuth2Session(self.clientId, state=state, redirect_uri=redirectUri)
 		oauthToken = oauth.fetch_token(self.tokenUrl, client_secret=self.clientSecret,authorization_response=response)
 		self.token = oauth._client.access_token

@@ -10,7 +10,7 @@ from api import OpenbravoToBanqupAPI
 from datetime import timedelta, date
 
 def extract_invoice(document):
-	
+
 	url = ob_api_url+"Invoice?_where=documentNo='"+document+"'&_noActiveFilter=false"
 
 	payload = {}
