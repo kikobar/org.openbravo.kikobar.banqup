@@ -17,7 +17,11 @@
 from pathlib import Path
 from requests_oauthlib import OAuth2Session
 import config
-
+import http.client
+import ssl
+from urllib.parse import quote
+import string
+import json
 
 class AuthHandler:
 
@@ -45,9 +49,24 @@ class AuthHandler:
 		if not state:
 			if not self.state: print('state is not found. init the auth flow first or give the state as a parameter.')
 			state = self.state
-		oauth = OAuth2Session(self.clientId, state=state, redirect_uri=redirectUri)
-		oauthToken = oauth.fetch_token(self.tokenUrl, client_secret=self.clientSecret,authorization_response=response)
-		self.token = oauth._client.access_token
+		code = response.split("&code=")[1]
+		tokenDomain = self.tokenUrl.split("://")[1]
+		tokenDomain = tokenDomain.split("/")[0]
+		tokenAddress = self.tokenUrl.split(tokenDomain)[1]
+		conn = http.client.HTTPSConnection(tokenDomain,context=ssl._create_unverified_context())
+		payload = (
+			'grant_type=authorization_code'+
+			'&redirect_uri='+quote(redirectUri)+
+			'&client_id='+self.clientId+
+			'&client_secret='+self.clientSecret+
+			'&code='+code
+			)
+		headers = {
+			'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		conn.request("POST", tokenAddress, payload, headers)
+		res = conn.getresponse()
+		self.token = json.loads(res.read())['access_token']
 		self.cacheHandler.setCache(self.clientId, self.token)
 		return self.token
 
